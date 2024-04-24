@@ -1,0 +1,125 @@
+ <!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dashboard</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+
+	 <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ashok IT</a>
+            <a class="navbar-brand" th:href="@{/dashboard}">HOME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="enquiry">Add Enquiries</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-danger" href="/">Logout</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>View Enquiry</h1>
+
+        <form th:object="${enq}" th:action="@{filterenq}" method="post">
+            <table>
+
+
+
+                <td>Class Mode :</td>
+                <td>
+                    <select th:field="*{classmode}">
+                        <option value="">-Select-</option>
+                        <option value="classroom">-Classroom-</option>
+                        <option value="online">-Online-</option>
+                    </select>
+                </td>
+
+
+                <td>Course :</td>
+                <td>
+                    <select th:field="*{course}">
+                        <option value="">-Select-</option>
+                        <option value="java">-JAVA-</option>
+                        <option value="python">-PYTHON-</option>
+                        <option value="aws">-AWS-</option>
+                    </select>
+                </td>
+
+
+                <td>Status:</td>
+                <td>
+                    <select th:field="*{status}">
+                        <option value="">-Select-</option>
+                        <option value="Enrolled">-Enrolled-</option>
+                        <option value="New">-New-</option>
+                        <option value="Lost">-Lost-</option>
+                    </select>
+                </td>
+
+
+                <td><input type="submit" value="Search" class="btn btn-primary" /></td>
+
+            </table>
+        </form>
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Phno</th>
+                <th>Course Name</th>
+                <th>Class Mode</th>
+                <th>Status</th>
+                <th>Action</th>
+            </thead>
+
+            <tbody>
+
+                <!-- Use Thymeleaf to iterate over enquiries and display them -->
+                <tr th:each="V : ${enqs}">
+                    <td th:text="${V.eid}"></td>
+                    <td th:text="${V.sname}"></td>
+                    <td th:text="${V.sphno}"></td>
+                    <td th:text="${V.classmode}"></td>
+                    <td th:text="${V.course}"></td>
+                    <td th:text="${V.status}"></td>
+                    <!-- Add Edit button -->
+                    <td>
+                        <a th:href="@{/edit (eid=${V.eid})}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
